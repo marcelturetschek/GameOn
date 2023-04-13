@@ -9,7 +9,9 @@ USE Datenbank;
 
 CREATE TABLE Userdaten (
     Email VARCHAR(255) NOT NULL,
-    Passwort
+    Passwort VARCHAR(255) NOT NULL,
+    Username VARCHAR(255) NOT NULL,
+    UserID INT()
 );
 
 --

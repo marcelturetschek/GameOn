@@ -26,7 +26,19 @@ var con = mysql.createConnection({
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World???????!')
+  res.send('Hello World!')
+})
+
+app.post('/register', (req, res) => {
+  var benutzername = req.body.benutzername;
+  var email = req.body.email;
+  var passwort = req.body.passwort;
+  //var sql = "INSERT INTO users (benutzername, email, passwort) VALUES ('" + benutzername + "', '" + email + "', '" + passwort + "')";
+  res.send('Register')
+})
+
+app.post('/login', (req, res) => {
+  res.send('Login')
 })
 
 app.listen(port, () => {

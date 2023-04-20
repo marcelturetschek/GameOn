@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const express = require('express')
 const cors = require('cors')
+const session = require('express-session');
 const app = express()
 const port = 8080
 
@@ -38,6 +39,8 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+  var email = req.body.email;
+  var passwort = req.body.passwort;
   res.send('Login')
 })
 

@@ -11,8 +11,11 @@
 
             </div>
             <div id="game-view-squares">
-                <div class="game-view-squares">
-                    
+                <div 
+                    v-for="(square, i) in squares"
+                    class="game-view-square">
+
+
                 </div>
             </div>
         </div>
@@ -23,6 +26,12 @@
         <script src="js/square.js" charset="UTF-8"></script>
         <script type="text/javascript">
             let activeGame = new Game();
+
+
+            let gameVue = new Vue({
+                el: '#game-view',
+                data: activeGame
+            });
         </script>
     </body>
 </html>

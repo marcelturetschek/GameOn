@@ -5,7 +5,7 @@
 }
 
 #game-view-info {
-    padding-left: 15px;
+    padding: 15px;
     font-family: sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -21,9 +21,9 @@
     box-sizing: border-box;
 }
 
-.game-view-squares {
-    width: 33,33%;
-    height: 33,33%;
+.game-view-square {
+    width: 33.33%;
+    height: 33.33%;
 
     display: flex;
     justify-content: center;
@@ -35,4 +35,16 @@
     text-transform: uppercase;
 
     border-radius: 15px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
 }
+
+.game-view-square.highlighted {color: green}
+
+.game-view-square:hover {background-color: #eee;}
+
+.game-view-square:nth-child(-n + 6) { border-bottom: 15px solid brown }
+
+.game-view-square:nth-child(3n + 1),
+.game-view-square:nth-child(3n+2) { border-right: 15px solid brown }

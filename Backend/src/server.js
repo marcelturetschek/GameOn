@@ -1,6 +1,13 @@
-var http = require('http');
-var url = require('url');
-var mysql = require('mysql');
+const mysql = require('mysql');
+const express = require('express')
+const cors = require('cors')
+//const session = require('express-session');
+const app = express()
+const port = 8080
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors())
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -9,7 +16,7 @@ var con = mysql.createConnection({
   database: "mydb"
 });
 
-con.connect(function(err) {
+/* con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
   var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
@@ -17,17 +24,37 @@ con.connect(function(err) {
     if (err) throw err;
     console.log("1 record inserted");
   });
-});
+}); */
+// how to handle axios post request in nodejs?
 
-http.createServer(function(req, res) {
-    const headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, DELETE, UPDATE",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Max-Age": 2592000,
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true
-        
-    };
-    res.writeHead(200, headers);
-}).listen(8080)
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.post('/register', (req, res) => {
+  var benutzername = req.body.benutzername;
+  var email = req.body.email;
+  var passwort = req.body.passwort;
+  //var sql = "INSERT INTO users (benutzername, email, passwort) VALUES ('" + benutzername + "', '" + email + "', '" + passwort + "')";
+  res.send('Register')
+})
+
+app.post('/login', (req, res) => {
+  var email = req.body.email;
+  var passwort = req.body.passwort;
+  res.send('Login')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`)
+})
+
+// Define the middleware function that logs the request method
+const logMethod = (req, res, next) => {
+  console.log(req.method);
+  next();
+}
+
+// Use the middleware function for all routes
+app.use(logMethod);

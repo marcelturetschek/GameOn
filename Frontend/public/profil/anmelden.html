@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game On Anmelden</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="profil.css">
+  </head>
+  <body style="background-color: #8C8C8C;">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
+
+
+    <nav class="navbar navbar-expand-lg" style="background-color: #4D4D4D;">
+      <div class="container-fluid" style="background-color: #4D4D4D;">
+      <a href="">
+        <img src="img/GameOn_Logo.png" alt="Logo" width="100" height="100" class="img-fluid">
+      </a>
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+            <h1 class="text-center" style="color: white; font-weight: 700;">Anmelden</h1>
+            <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="img/GameOn_Profil_Icon.png" alt="Profil Icon" width="50" height="50" class="img-fluid" style="padding-left: 10px;">
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: 87%;">
+                <a class="dropdown-item" href="#">Anmelden</a>
+                <a class="dropdown-item" href="#">Registrieren</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <form class="p-3 container mx-auto" style="margin-top: 30px;">
+      <div class="form-floating mb-3" style="margin-left: 410px;">
+        <label for="floatingInput">E-Mail-Adresse</label>
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" style="width: 300px;">
+      </div>
+      <div class="form-floating mb-3" style="margin-left: 410px;">
+        <label for="floatingPassword">Passwort</label>
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Passwort" style="width: 300px;">
+      </div>
+      <button type="submit" class="btn btn-primary w-15 mb-3" style="margin-left: 510px; margin-top: 20px; background-color: #4D4D4D; border: #4D4D4D;">Anmelden</button>
+      <a href="#" class="text-center d-block" style="margin-top: 10px; margin-left: 15px;color: black;">Passwort vergessen?</a>
+    </form>
+
+    <footer class="footer" style="background-color: #4D4D4D;">
+      <div class="container-fluid" style="background-color: #4D4D4D;">
+        <div class="row">
+          <div class="col" style="padding-top: 7px; padding-left: 30px;">
+            <img src="img/GameOn_Logo.png" alt="Logo" width="100" height="100" class="img-fluid">
+          </div>
+          <div class="col text-center" style="padding-top: 35px;">
+            <p style="color: aliceblue; font-size: small;">Copyright © 2023 GameOn, Inc.
+            <br style="font-size: small;">All Rights Reserved</p>
+          </div>
+          <div class="col text-md-right" style="padding-top: 30px;">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a href="#" class="iwas"><p style="color: aliceblue; font-size: larger;">Home</p></a></li>
+              <li class="list-inline-item"><a href="#" class="iwas"><p style="color: aliceblue; font-size: larger;">Contact</p></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <style>
+      
+
+      footer {
+        position: fixed;
+        bottom: 0;
+        height: 90px;
+        width: 100%;
+      }
+
+      .iwas:hover {
+        text-decoration: none;
+      }
+
+      .list-inline-item:hover{
+          text-decoration: none;
+          transition: transform 0.2s ease-in-out;
+          transform: scale(1.2);
+      }
+
+    </style>
+
+  </body>
+</html>

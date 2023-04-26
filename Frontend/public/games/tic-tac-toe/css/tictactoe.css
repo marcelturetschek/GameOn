@@ -10,7 +10,7 @@
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    background-color: #eee;
+    background-color: #818386;
 }
 
 #game-view-squares {
@@ -30,7 +30,7 @@
     align-items: center;
     box-sizing: border-box;
 
-    font-family: cursive;
+    font-family: 'Source Code Pro', monospace;
     font-size: 75px;
     text-transform: uppercase;
 
@@ -44,7 +44,7 @@
 
 .game-view-square:hover {background-color: #eee;}
 
-.game-view-square:nth-child(-n + 6) { border-bottom: 15px solid brown }
+.game-view-square:nth-child(-n + 6) { border-bottom: 15px solid #f43635 }
 
 .game-view-square:nth-child(3n + 1),
-.game-view-square:nth-child(3n+2) { border-right: 15px solid brown }
+.game-view-square:nth-child(3n+2) { border-right: 15px solid #f43635 }

@@ -1,9 +1,11 @@
 const mysql = require('mysql');
 const express = require('express')
 const cors = require('cors')
-const session = require('express-session');
+//const session = require('express-session');
 const app = express()
 const port = 8080
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors())
 
@@ -45,5 +47,14 @@ app.post('/login', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port http://localhost:${port}`)
 })
+
+// Define the middleware function that logs the request method
+const logMethod = (req, res, next) => {
+  console.log(req.method);
+  next();
+}
+
+// Use the middleware function for all routes
+app.use(logMethod);

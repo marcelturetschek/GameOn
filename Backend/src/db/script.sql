@@ -11,8 +11,8 @@ CREATE TABLE Userdaten (
     Email VARCHAR(255) NOT NULL,
     Passwort VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
-    UserID INT,
-    PRIMARY KEY (Email)
+    UserID INT AUTO_INCREMENT,
+    PRIMARY KEY (UserID)
 );
 
 --
@@ -27,5 +27,5 @@ CREATE TABLE Spieldaten (
     Q1 INT,
     Q2 INT,
     Q3 INT,
-    PRIMARY KEY (UserID)
+    FOREIGN KEY (UserID) REFERENCES Userdaten(UserID)
 );

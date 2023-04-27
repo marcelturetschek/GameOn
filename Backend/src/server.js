@@ -9,6 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors())
 
+// Define the middleware function that logs the request method
+const logMethod = (req, res, next) => {
+  console.log(`Request -> ${req.method}; URL -> ${req.url}; Host -> ${req.hostname}`);
+  next();
+}
+
+// Use the middleware function for all routes
+app.use(logMethod);
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "yourusername",
@@ -49,11 +58,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
 })
 
-// Define the middleware function that logs the request method
-const logMethod = (req, res, next) => {
-  console.log(req.method);
-  next();
-}
 
-// Use the middleware function for all routes
-app.use(logMethod);

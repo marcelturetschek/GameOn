@@ -25,7 +25,6 @@ var con = mysql.createConnection({
     console.log("1 record inserted");
   });
 }); */
-// how to handle axios post request in nodejs?
 
 
 app.get('/', (req, res) => {

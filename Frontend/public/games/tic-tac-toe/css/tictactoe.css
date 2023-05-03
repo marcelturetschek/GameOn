@@ -6,8 +6,8 @@
 
 #game-view-info {
     padding: 15px;
-    font-family: sans-serif;
-    font-size: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 25px;
     font-weight: bold;
     text-align: center;
     background-color: #818386;
@@ -19,6 +19,18 @@
     flex-wrap: wrap;
     padding: 25px;
     box-sizing: border-box;
+}
+
+#game-bottom-hotbar {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.restart-button {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
 }
 
 .game-view-square {

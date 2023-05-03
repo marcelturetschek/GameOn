@@ -18,8 +18,10 @@
                     v-bind:class="{ highlighted: square.isHighlighted }"
                     class="game-view-square">
                     {{ square.value }}
-
                 </div>
+            </div>
+            <div id="game-bottom-hotbar">
+                <button class="restart-button" v-on:click="restartGame">Restart</button>
             </div>
         </div>
 
@@ -46,9 +48,17 @@
                             return 'Draw!';
                         }
                     }
+                },
+                methods: {
+                    restartGame: function() {
+                        this.inProgress = true;
+                        this.winner = null; 
+                        this.currentTurn = Game.O; 
+                        this.movesMade = 0;
+                        this.squares = new Array(9).fill().map( s => new Square());
+                    }
                 }
             });
-            
         </script>
     </body>
 </html>

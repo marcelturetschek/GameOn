@@ -6,11 +6,11 @@
 
 #game-view-info {
     padding: 15px;
-    font-family: sans-serif;
-    font-size: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 25px;
     font-weight: bold;
     text-align: center;
-    background-color: #eee;
+    background-color: #818386;
 }
 
 #game-view-squares {
@@ -19,6 +19,18 @@
     flex-wrap: wrap;
     padding: 25px;
     box-sizing: border-box;
+}
+
+#game-bottom-hotbar {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.restart-button {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
 }
 
 .game-view-square {
@@ -30,7 +42,7 @@
     align-items: center;
     box-sizing: border-box;
 
-    font-family: cursive;
+    font-family: 'Source Code Pro', monospace;
     font-size: 75px;
     text-transform: uppercase;
 
@@ -44,7 +56,7 @@
 
 .game-view-square:hover {background-color: #eee;}
 
-.game-view-square:nth-child(-n + 6) { border-bottom: 15px solid brown }
+.game-view-square:nth-child(-n + 6) { border-bottom: 15px solid #f43635 }
 
 .game-view-square:nth-child(3n + 1),
-.game-view-square:nth-child(3n+2) { border-right: 15px solid brown }
+.game-view-square:nth-child(3n+2) { border-right: 15px solid #f43635 }

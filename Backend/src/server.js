@@ -49,7 +49,7 @@ app.post('/register', (req, res) => {
     var email = req.body.email;
     var passwort = req.body.passwort;
     // Validate email
-    if (!validator.isEmail(email)) {
+    /* if (!validator.isEmail(email)) {
         return res.status(400).send('Invalid email address');
     }
 
@@ -63,7 +63,12 @@ app.post('/register', (req, res) => {
         }
         console.log("User successfully registered");
         return res.status(200).send('User successfully registered');
-    });
+    }); */
+
+    if (benutzername == 'admin' && email == 'admin@test.at' && passwort == 'admin') {
+        res.send('Admin registriert')
+    }
+    console.log(benutzername, email, passwort)
     res.send('Register')
 })
 

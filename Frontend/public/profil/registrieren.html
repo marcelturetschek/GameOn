@@ -115,6 +115,7 @@
       },
       methods: {
           submit() {
+            console.log("submit")
               var query = "http://localhost:8080/register"
               axios.post(query, {
                   benutzername: this.benutzername,

@@ -45,9 +45,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-    var benutzername = req.body.benutzername;
+    var username = req.body.username;
     var email = req.body.email;
-    var passwort = req.body.passwort;
+    var password = req.body.password;
     // Validate email
     /* if (!validator.isEmail(email)) {
         return res.status(400).send('Invalid email address');
@@ -65,11 +65,8 @@ app.post('/register', (req, res) => {
         return res.status(200).send('User successfully registered');
     }); */
 
-    if (benutzername == 'admin' && email == 'admin@test.at' && passwort == 'admin') {
-        res.send('Admin registriert')
-    }
-    console.log(benutzername, email, passwort)
-    res.send('Register')
+    console.log(username)
+    res.send('Register  dawdadad')
 })
 
 app.post('/login', (req, res) => {

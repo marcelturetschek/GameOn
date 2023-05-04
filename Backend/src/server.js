@@ -10,6 +10,15 @@ const validator = require('validator');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
+var corsOptions = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, POST, GET, PUT, DELETE, UPDATE",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": 2592000,
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true
+  }
+
 
 // Define the middleware function that logs the request method
 const logMethod = (req, res, next) => {
@@ -44,7 +53,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', cors(corsOptions), (req, res) => {
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;

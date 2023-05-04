@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Game On Index</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="index.html">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body style="background-color: #8C8C8C;">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -91,16 +91,18 @@
       <div class="container-fluid" style="background-color: #4D4D4D;">
         <div class="row">
           <div class="col" style="padding-top: 20px; padding-left: 30px;">
-            <img src="img/GameOn_Logo.png" alt="Logo" width="100" height="100" class="img-fluid">
-          </div>
-          <div class="col text-center" style="padding-top: 50px;">
+            <a href="index.html">
+                <img src="img/GameOn_Logo.png" href="../landingpage/index.html"alt="Logo" width="100" height="100" class="img-fluid">
+            </a>
+            </div>
+            <div class="col text-center" style="padding-top: 50px;">
             <p style="color: aliceblue; font-size: small;">Copyright © 2023 GameOn, Inc.
             <br style="font-size: small;">All Rights Reserved</p>
           </div>
           <div class="col text-md-right" style="padding-top: 40px;">
             <ul class="list-inline">
               <li class="list-inline-item"><a href="index.html"><p style="color: aliceblue; font-size: larger;">Home</p></a></li>
-              <li class="list-inline-item"><a href="#"><p style="color: aliceblue; font-size: larger;">Contact</p></a></li>
+              <li class="list-inline-item"><a href="../highscores/highscore.html"><p style="color: aliceblue; font-size: larger;">Highscores</p></a></li>
             </ul>
           </div>
         </div>
@@ -108,11 +110,7 @@
     </footer>
 
     <style>
-      a:hover {
-        text-decoration: none;
-        transform: scale(1.2);
-        transition: transform 0.2s ease-in-out;
-      }
+      
 
       .list-inline-item:hover{
           transition: transform 0.2s ease-in-out;
@@ -120,8 +118,15 @@
       }
 
       .text:hover{
+          text-decoration: none;
           transition: transform 0.2s ease-in-out;
           transform: scale(1.2);
+      }
+
+      .dropdown-item:hover{
+        text-decoration: none;
+        transform: scale(1.2);
+        transition: transform 0.2s ease-in-out;
       }
     </style>
 

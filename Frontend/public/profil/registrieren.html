@@ -5,14 +5,19 @@
     <title>Register</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="profil.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <async script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
     
   </head>
   <body style="background-color: #8C8C8C;">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
     <nav class="navbar navbar-expand-lg" style="background-color: #4D4D4D;">
       <div class="container-fluid" style="background-color: #4D4D4D;">
       <a href="../landingpage/index.html">
@@ -50,7 +55,7 @@
         <label for="floatingPassword">Passwort</label>
         <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Passwort" style="width: 300px;">
       </div>
-      <a v-on:click="register()" type="button" class="btn btn-primary w-15 mb-3" style="margin-left: 510px; margin-top: 20px; background-color: #4D4D4D; border: #4D4D4D;">Registrieren</a>
+        <button v-on:click="register()" type="button" class="btn btn-primary w-15 mb-3" style="margin-left: 510px; margin-top: 20px; background-color: #4D4D4D; border: #4D4D4D;">Registrieren</button>
     </div>
 
     <footer class="footer" style="background-color: #4D4D4D;">
@@ -75,75 +80,75 @@
       </div>
     </footer>
     
-  <style>
-    footer {
-      position: fixed;
-      bottom: 0;
-      height: 90px;
-      width: 100%;
-    }
-
-    .iwas:hover {
-      text-decoration: none;
-    }
-
-    .list-inline-item:hover{
+    <style>
+      footer {
+        position: fixed;
+        bottom: 0;
+        height: 90px;
+        width: 100%;
+      }
+  
+      .iwas:hover {
+        text-decoration: none;
+      }
+  
+      .list-inline-item:hover{
+          text-decoration: none;
+          transition: transform 0.2s ease-in-out;
+          transform: scale(1.2);
+      }
+  
+      .dropdown-item:hover{
         text-decoration: none;
         transition: transform 0.2s ease-in-out;
-        transform: scale(1.2);
-    }
+        transform: scale(1.05);
+      }
+  
+    </style>
 
-    .dropdown-item:hover{
-      text-decoration: none;
-      transition: transform 0.2s ease-in-out;
-      transform: scale(1.05);
-    }
+    <script>
+    var app = new Vue ({
+        el: "#app",
+        data: {
+            username: "",
+            email: "",
+            password: "",
+        },
+        mounted() {
+          this.refresh();
+        },
+        methods: {
+            register() {
+                console.log("submit")
+                alert("djadadaod")
+                var query = "http://localhost:8080/register"
+                axios.post(query, {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password
+                })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            refresh() {
+                axios.get('http://localhost:8080/')
+                .then((response) => {
+                    console.log(response.data)
+                });
+            },
+            abc() {
+              alert("Hallo")
+            }
 
-  </style>
-
-  <script>
-  export default {
-      el: "#app",
-      data: {
-          username: "",
-          email: "",
-          password: "",
-      },
-      mounted() {
-        this.refresh();
-      },
-      methods: {
-          register() {
-              console.log("submit")
-              alert("djadadaod")
-              var query = "http://localhost:8080/register"
-              axios.post(query, {
-                  username: this.username,
-                  email: this.email,
-                  password: this.password
-              })
-              .then(function (response) {
-                  console.log(response);
-              })
-              .catch(function (error) {
-                  console.log(error);
-              });
-          },
-          refresh() {
-              axios.get('http://localhost:8080/')
-              .then((response) => {
-                  console.log(response.data)
-              });
-          },
-          abc() {
-            alert("Hallo")
-          }
-
-        } 
-            
-      
-  };
-  </script>
+          } 
+              
+        
+    });
+    </script>
   </body>
   
 </html>

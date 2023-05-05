@@ -4,20 +4,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="profil.css">
+    <link rel="stylesheet" type="text/css" href="css/profil.css">
+
     
     
   </head>
   <body style="background-color: #8C8C8C;">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
+
+
+  <div id="app">
     <nav class="navbar navbar-expand-lg" style="background-color: #4D4D4D;">
       <div class="container-fluid" style="background-color: #4D4D4D;">
       <a href="../landingpage/index.html">
@@ -39,23 +43,22 @@
             </li>
           </ul>
         </div>
-      </div>
     </nav>
 
     <div class="p-4 container mx-auto" style="margin-top: 30px;">
         <div class="form-floating mb-3  " style="margin-left: 410px;">
-            <label for="floatingInput">Benutzername</label>
-            <input v-model="username" type="benutzername" class="form-control" id="floatingInput" placeholder="Benutzername" style="width: 300px;">
+            <label for="floatingInput1">Benutzername</label>
+            <input v-model="username" type="text" class="form-control" id="floatingInput1" placeholder="Benutzername" style="width: 300px;">
         </div>
       <div class="form-floating mb-3" style="margin-left: 410px;">
-        <label for="floatingInput">E-Mail-Adresse</label>
-        <input v-model="email" type="email"  class="form-control" id="floatingInput" placeholder="name@example.com" style="width: 300px;">
+        <label for="floatingInput2">E-Mail-Adresse</label>
+        <input v-model="email" type="email"  class="form-control" id="floatingInput2" placeholder="name@example.com" style="width: 300px;">
       </div>
       <div class="form-floating mb-3" style="margin-left: 410px;">
         <label for="floatingPassword">Passwort</label>
         <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Passwort" style="width: 300px;">
       </div>
-        <button v-on:click="register()" type="button" class="btn btn-primary w-15 mb-3" style="margin-left: 510px; margin-top: 20px; background-color: #4D4D4D; border: #4D4D4D;">Registrieren</button>
+      <button @click="register()" type="button" class="btn btn-primary w-15 mb-3" style="margin-left: 510px; margin-top: 20px; background-color: #4D4D4D; border: #4D4D4D;">Registrieren</button>
     </div>
 
     <footer class="footer" style="background-color: #4D4D4D;">
@@ -63,7 +66,7 @@
         <div class="row">
           <div class="col" style="padding-top: 7px; padding-left: 30px;">
             <a href="../landingpage/index.html">
-                <img src="img/GameOn_Logo.png" href="../landingpage/index.html"alt="Logo" width="100" height="100" class="img-fluid">
+                <img src="img/GameOn_Logo.png" href="../landingpage/index.html" alt="Logo" width="100" height="100" class="img-fluid">
             </a>
           </div>
           <div class="col text-center" style="padding-top: 35px;">
@@ -79,6 +82,7 @@
         </div>
       </div>
     </footer>
+    </div>
     
     <style>
       footer {
@@ -139,16 +143,9 @@
                 .then((response) => {
                     console.log(response.data)
                 });
-            },
-            abc() {
-              alert("Hallo")
             }
-
-          } 
-              
-        
+        }
     });
     </script>
   </body>
-  
 </html>

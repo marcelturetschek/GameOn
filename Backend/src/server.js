@@ -74,16 +74,16 @@ app.post('/register', cors(corsOptions), (req, res) => {
         return res.status(200).send('User successfully registered');
     }); */
 
-    console.log(username)
-    res.send('Register  dawdadad')
+    console.log(JSON.parse(username), JSON.parse(email), JSON.parse(password));
+    res.send('User Registered')
 })
 
 app.post('/login', (req, res) => {
     var email = req.body.email;
-    var passwort = req.body.passwort;
+    var password = req.body.password;
 
     // verify email and password
-    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
     const values = [email, passwort];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -91,8 +91,8 @@ app.post('/login', (req, res) => {
             return res.status(500).send('Login failed');
         }
         
-    });    
-
+    });*/
+    console.log(JSON.parse(email), JSON.parse(password));
     res.send('Login')
 })
 

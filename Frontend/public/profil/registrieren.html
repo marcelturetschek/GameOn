@@ -6,21 +6,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profil.css">
 
-    
-    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Sweet Alert Popup -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   </head>
   <body style="background-color: #8C8C8C;">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha384-DziPnEEX8Jd+gFGf1GVEfwrjIEZkkP0mLh2wjV1lKuL2sOi/hT0+CbKXJXEfjf5f" crossorigin="anonymous">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-
-
-
   <div id="app">
     <nav class="navbar navbar-expand-lg" style="background-color: #4D4D4D;">
       <div class="container-fluid" style="background-color: #4D4D4D;">
@@ -107,6 +105,11 @@
         transition: transform 0.2s ease-in-out;
         transform: scale(1.05);
       }
+
+      .errorPopup{
+        width:300px !important;
+        height: 350px !important;
+      }
   
     </style>
 
@@ -123,8 +126,26 @@
         },
         methods: {
             register() {
-                console.log("submit")
-                alert("djadadaod")
+                if (!this.email || !this.username || !this.password) {
+                  Swal.fire({
+                    title: 'Bitte füllen Sie alle Felder aus!',
+                    icon: 'error',
+                    confirmButtonColor: '#4D4D4D',
+                    customClass: 'errorPopup',
+                    allowOutsideClick: () => {
+                      const popup = Swal.getPopup()
+                      popup.classList.remove('swal2-show')
+                      setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                      })
+                      setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                      }, 500)
+                      return false
+                    }
+                  })
+                  return;
+                }
                 var query = "http://localhost:8080/register"
                 axios.post(query, {
                     username: this.username,

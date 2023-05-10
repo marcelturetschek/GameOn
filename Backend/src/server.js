@@ -51,12 +51,14 @@ var con = mysql.createConnection({
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
-})
+});
 
+/**
+ * Die Registrierungsdaten werden überprüft
+ * Der User füllt das User Formular aus
+ */
 app.post('/register', cors(corsOptions), (req, res) => {
-    var username = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
+    const { username, email, password } = req.body;
     // Validate email
     /* if (!validator.isEmail(email)) {
         return res.status(400).send('Invalid email address');
@@ -74,13 +76,16 @@ app.post('/register', cors(corsOptions), (req, res) => {
         return res.status(200).send('User successfully registered');
     }); */
 
-    console.log(JSON.parse(username), JSON.parse(email), JSON.parse(password));
+    console.log(JSON.stringify(username), JSON.stringify(email), JSON.stringify(password));
     res.send('User Registered')
 })
 
+/**
+ * Die Login Daten werden überprüft
+ * Der User füllt das Login Formular aus
+ */
 app.post('/login', (req, res) => {
-    var email = req.body.email;
-    var password = req.body.password;
+    const { email, password } = req.body;
 
     // verify email and password
     /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
@@ -92,12 +97,82 @@ app.post('/login', (req, res) => {
         }
         
     });*/
-    console.log(JSON.parse(email), JSON.parse(password));
+    console.log(JSON.stringify(email), JSON.stringify(password));
     res.send('Login')
-})
+});
 
+/**
+ * TicTacToe Spieledaten werden gespeichert
+ */
+app.post('/tictactoe', (req, res) => {
+    // gameData --> Wins am Stück
+    const { userID, gameID, gameData } = req.body;
+    console.log(JSON.stringify(email), JSON.stringify(password));
+    res.send('Login')
+});
 
+/**
+ * Minesweeper Spieledaten werden gespeichert
+ */
+app.post('/minesweeper', (req, res) => {
+    // gameData --> Zeit für das Spiel
+    const { userID, gameID, gameData } = req.body;
 
+    // verify email and password
+    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const values = [email, passwort];
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Login failed');
+        }
+
+    });*/
+    console.log(JSON.stringify(email), JSON.stringify(password));
+    res.send('Login')
+});
+
+/**
+ * Retro Ping Pong Spieledaten werden gespeichert
+ */
+app.post('/retropingpong', (req, res) => {
+    // gameData --> Schläge von Board
+    const { userID, gameID, gameData } = req.body;
+
+    // verify email and password
+    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const values = [email, passwort];
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Login failed');
+        }
+
+    });*/
+    console.log(JSON.stringify(email), JSON.stringify(password));
+    res.send('Login')
+});
+
+/**
+ * TGM Bird Spieledaten werden gespeichert
+ */
+app.post('/tgmbird', (req, res) => {
+    // gameData --> Distance
+    const { userID, gameID, gameData } = req.body;
+
+    // verify email and password
+    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const values = [email, passwort];
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Login failed');
+        }
+
+    });*/
+    console.log(JSON.stringify(email), JSON.stringify(password));
+    res.send('Login')
+});
 
 
 app.listen(port, () => {

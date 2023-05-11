@@ -33,9 +33,10 @@ app.use(logMethod);
 
 var con = mysql.createConnection({
     host: "localhost",
-    user: "yourusername",
-    password: "yourpassword",
-    database: "mydb"
+    port: 8080,
+    user: "root",
+    password: "abc123",
+    database: "Datenbank"
 });
 
 /* con.connect(function(err) {

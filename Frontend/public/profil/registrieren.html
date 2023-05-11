@@ -147,36 +147,37 @@
                     email: this.email,
                     password: this.password
                   })
-                      .then(function (response) {
-                        if (response.data.success) {
-                          showPopup(response.data.msg, 'success', '#4D4D4D', 'userPopUp', () => {
-                            const popup = Swal.getPopup()
-                            popup.classList.remove('swal2-show')
-                            setTimeout(() => {
-                              popup.classList.add('animate__animated', 'animate__headShake')
-                            })
-                            setTimeout(() => {
-                              popup.classList.remove('animate__animated', 'animate__headShake')
-                            }, 500)
-                            return false
+                    .then(function (response) {
+                      if (response.data.success) {
+                        showPopup(response.data.msg, 'success', '#4D4D4D', 'userPopUp', () => {
+                          const popup = Swal.getPopup()
+                          popup.classList.remove('swal2-show')
+                          setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
                           })
-                        } else {
-                          showPopup(response.data.msg, 'error', '#4D4D4D', 'userPopUp', () => {
-                            const popup = Swal.getPopup()
-                            popup.classList.remove('swal2-show')
-                            setTimeout(() => {
-                              popup.classList.add('animate__animated', 'animate__headShake')
-                            })
-                            setTimeout(() => {
-                              popup.classList.remove('animate__animated', 'animate__headShake')
-                            }, 500)
-                            return false
+                          setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                          }, 500)
+                          return false
+                        })
+                      } else {
+                        showPopup(response.data.msg, 'error', '#4D4D4D', 'userPopUp', () => {
+                          const popup = Swal.getPopup()
+                          popup.classList.remove('swal2-show')
+                          setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
                           })
-                        }
-                      })
-                      .catch(function (error) {
-                        console.log(error);
-                      });
+                          setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                          }, 500)
+                          return false
+                        })
+                      }
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  this.resetInput()
                 }
             },
             refresh() {
@@ -184,6 +185,11 @@
                 .then((response) => {
                     console.log(response.data)
                 });
+            },
+            resetInput() {
+              this.username = "";
+              this.email = "";
+              this.password = "";
             }
         }
     });

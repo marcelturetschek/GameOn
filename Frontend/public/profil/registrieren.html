@@ -5,6 +5,7 @@
     <title>Register</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profil.css">
+    <script src="../templates/popup.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -106,7 +107,7 @@
         transform: scale(1.05);
       }
 
-      .errorPopup{
+      .userPopup{
         width:300px !important;
         height: 350px !important;
       }
@@ -127,37 +128,56 @@
         methods: {
             register() {
                 if (!this.email || !this.username || !this.password) {
-                  Swal.fire({
-                    title: 'Bitte füllen Sie alle Felder aus!',
-                    icon: 'error',
-                    confirmButtonColor: '#4D4D4D',
-                    customClass: 'errorPopup',
-                    allowOutsideClick: () => {
-                      const popup = Swal.getPopup()
-                      popup.classList.remove('swal2-show')
-                      setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                      })
-                      setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                      }, 500)
-                      return false
-                    }
+                  showPopup('Bitte füllen Sie alle Felder aus!', 'error', '#4D4D4D', 'userPopUp', () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                      popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                      popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
                   })
-                  return;
-                }
-                var query = "http://localhost:8080/register"
-                axios.post(query, {
+
+                } else {
+                  var query = "http://localhost:8080/register"
+                  axios.post(query, {
                     username: this.username,
                     email: this.email,
                     password: this.password
-                })
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                  })
+                      .then(function (response) {
+                        if (response.data.success) {
+                          showPopup(response.data.msg, 'success', '#4D4D4D', 'userPopUp', () => {
+                            const popup = Swal.getPopup()
+                            popup.classList.remove('swal2-show')
+                            setTimeout(() => {
+                              popup.classList.add('animate__animated', 'animate__headShake')
+                            })
+                            setTimeout(() => {
+                              popup.classList.remove('animate__animated', 'animate__headShake')
+                            }, 500)
+                            return false
+                          })
+                        } else {
+                          showPopup(response.data.msg, 'error', '#4D4D4D', 'userPopUp', () => {
+                            const popup = Swal.getPopup()
+                            popup.classList.remove('swal2-show')
+                            setTimeout(() => {
+                              popup.classList.add('animate__animated', 'animate__headShake')
+                            })
+                            setTimeout(() => {
+                              popup.classList.remove('animate__animated', 'animate__headShake')
+                            }, 500)
+                            return false
+                          })
+                        }
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                }
             },
             refresh() {
                 axios.get('http://localhost:8080/')

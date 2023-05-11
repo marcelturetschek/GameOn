@@ -5,6 +5,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profil.css">
+    <script src="../templates/popup.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -106,7 +107,7 @@
         transition: transform 0.2s ease-in-out;
       }
 
-      .errorPopup{
+      .userPopup{
         width:300px !important;
         height: 350px !important;
       }
@@ -126,42 +127,65 @@
         methods: {
           login() {
             if (!this.email || !this.password) {
-              Swal.fire({
-                title: 'Bitte füllen Sie alle Felder aus!',
-                icon: 'error',
-                confirmButtonColor: '#4D4D4D',
-                customClass: 'errorPopup',
-                allowOutsideClick: () => {
-                  const popup = Swal.getPopup()
-                  popup.classList.remove('swal2-show')
-                  setTimeout(() => {
-                    popup.classList.add('animate__animated', 'animate__headShake')
-                  })
-                  setTimeout(() => {
-                    popup.classList.remove('animate__animated', 'animate__headShake')
-                  }, 500)
-                  return false
-                }
+              showPopup('Bitte füllen Sie alle Felder aus!', 'error', '#4D4D4D', 'userPopUp', () => {
+                const popup = Swal.getPopup()
+                popup.classList.remove('swal2-show')
+                setTimeout(() => {
+                  popup.classList.add('animate__animated', 'animate__headShake')
+                })
+                setTimeout(() => {
+                  popup.classList.remove('animate__animated', 'animate__headShake')
+                }, 500)
+                return false
               })
-              return;
+
+            } else {
+              var query = "http://localhost:8080/login"
+              axios.post(query, {
+                email: this.email,
+                password: this.password
+              })
+                .then(function (response) {
+                  if (response.data.success) {
+                    showPopup(response.data.msg, 'success',  '#4D4D4D', 'userPopUp', () => {
+                      const popup = Swal.getPopup()
+                      popup.classList.remove('swal2-show')
+                      setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                      })
+                      setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                      }, 500)
+                      return false
+                    })
+                  } else {
+                    showPopup(response.data.msg, 'error', '#4D4D4D', 'userPopUp', () => {
+                      const popup = Swal.getPopup()
+                      popup.classList.remove('swal2-show')
+                      setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                      })
+                      setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                      }, 500)
+                      return false
+                    })
+                  }
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+              this.resetInput();
             }
-            var query = "http://localhost:8080/login"
-            axios.post(query, {
-              email: this.email,
-              password: this.password
-            })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
           },
           refresh() {
             axios.get('http://localhost:8080/')
-                    .then((response) => {
-                      console.log(response.data)
+                    .then((response) => {console.log(response.data)
             });
+          },
+          resetInput() {
+            this.email = "";
+            this.password = "";
           }
         }
       });

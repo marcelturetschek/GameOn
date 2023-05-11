@@ -78,8 +78,9 @@ app.post('/register', cors(corsOptions), (req, res) => {
         return res.status(200).send('User successfully registered');
     }); */
 
-    console.log(JSON.stringify(username), JSON.stringify(email), JSON.stringify(password));
-    res.send('User Registered')
+    console.log(JSON.stringify(email), JSON.stringify(password), JSON.stringify(username))
+    console.log(JSON.stringify(req.body));
+    res.send({"success": true, "msg": "Register successful"})
 })
 
 /**
@@ -101,7 +102,7 @@ app.post('/login', cors(corsOptions), (req, res) => {
     });*/
     console.log(JSON.stringify(email), JSON.stringify(password));
     console.log(JSON.stringify(req.body));
-    res.send('Login')
+    res.send({"success": true, "msg": "Login successful"})
 });
 
 /**

@@ -84,7 +84,7 @@ app.post('/register', cors(corsOptions), (req, res) => {
  * Die Login Daten werden überprüft
  * Der User füllt das Login Formular aus
  */
-app.post('/login', (req, res) => {
+app.post('/login', cors(corsOptions), (req, res) => {
     const { email, password } = req.body;
 
     // verify email and password
@@ -173,6 +173,11 @@ app.post('/tgmbird', (req, res) => {
     console.log(JSON.stringify(email), JSON.stringify(password));
     res.send('Login')
 });
+
+app.get('/highscores', (req, res) => {
+        // gameData --> Distance
+    }
+);
 
 
 app.listen(port, () => {

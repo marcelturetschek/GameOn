@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const validator = require('validator');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors())
 
 var corsOptions = {
@@ -99,6 +100,7 @@ app.post('/login', cors(corsOptions), (req, res) => {
         
     });*/
     console.log(JSON.stringify(email), JSON.stringify(password));
+    console.log(JSON.stringify(req.body));
     res.send('Login')
 });
 

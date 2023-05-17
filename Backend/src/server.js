@@ -43,11 +43,6 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 record inserted");
-  });
 }); 
 
 
@@ -67,8 +62,9 @@ app.post('/register', cors(corsOptions), (req, res) => {
     }
 
     // Insert user into database
-    const sql = "INSERT INTO Userdaten (benutzername, email, passwort) VALUES (?, ?, ?)";
-    const values = [benutzername, email, passwort];
+    const sql = "INSERT INTO Userdaten (username, email, passwort, userid) VALUES (?, ?, ?, ?)";
+    var userid = Math.floor(Math.random() * (99999998)) + 2;;
+    const values = [benutzername, email, passwort, userid];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);

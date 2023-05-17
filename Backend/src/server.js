@@ -7,6 +7,7 @@ const port = 8080
 const bodyParser = require('body-parser');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,6 +22,13 @@ var corsOptions = {
         "Access-Control-Allow-Credentials": true
   }
 
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'GameOnTGM@gmail.com',
+      pass: 'qzg0nvg-JYB*yry@mdq',
+    },
+  });
 
 // Define the middleware function that logs the request method
 const logMethod = (req, res, next) => {

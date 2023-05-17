@@ -40,7 +40,7 @@ var con = mysql.createConnection({
     database: "Datenbank"
 });
 
-/* con.connect(function(err) {
+con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
   var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
@@ -48,7 +48,7 @@ var con = mysql.createConnection({
     if (err) throw err;
     console.log("1 record inserted");
   });
-}); */
+}); 
 
 
 app.get('/', (req, res) => {
@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
 app.post('/register', cors(corsOptions), (req, res) => {
     const { username, email, password } = req.body;
     // Validate email
-    /* if (!validator.isEmail(email)) {
+    if (!validator.isEmail(email)) {
         return res.status(400).send('Invalid email address');
     }
 
@@ -76,7 +76,7 @@ app.post('/register', cors(corsOptions), (req, res) => {
         }
         console.log("User successfully registered");
         return res.status(200).send('User successfully registered');
-    }); */
+    }); 
 
     console.log(JSON.stringify(email), JSON.stringify(password), JSON.stringify(username))
     console.log(JSON.stringify(req.body));
@@ -91,7 +91,7 @@ app.post('/login', cors(corsOptions), (req, res) => {
     const { email, password } = req.body;
 
     // verify email and password
-    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
     const values = [email, passwort];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -99,7 +99,7 @@ app.post('/login', cors(corsOptions), (req, res) => {
             return res.status(500).send('Login failed');
         }
         
-    });*/
+    });
     console.log(JSON.stringify(email), JSON.stringify(password));
     console.log(JSON.stringify(req.body));
     res.send({"success": true, "msg": "Login successful"})
@@ -123,7 +123,7 @@ app.post('/minesweeper', (req, res) => {
     const { userID, gameID, gameData } = req.body;
 
     // verify email and password
-    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
     const values = [email, passwort];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -131,7 +131,7 @@ app.post('/minesweeper', (req, res) => {
             return res.status(500).send('Login failed');
         }
 
-    });*/
+    });
     console.log(JSON.stringify(email), JSON.stringify(password));
     res.send('Login')
 });
@@ -144,7 +144,7 @@ app.post('/retropingpong', (req, res) => {
     const { userID, gameID, gameData } = req.body;
 
     // verify email and password
-    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
     const values = [email, passwort];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -152,7 +152,7 @@ app.post('/retropingpong', (req, res) => {
             return res.status(500).send('Login failed');
         }
 
-    });*/
+    });
     console.log(JSON.stringify(email), JSON.stringify(password));
     res.send('Login')
 });
@@ -165,7 +165,7 @@ app.post('/tgmbird', (req, res) => {
     const { userID, gameID, gameData } = req.body;
 
     // verify email and password
-    /*const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
     const values = [email, passwort];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -173,7 +173,7 @@ app.post('/tgmbird', (req, res) => {
             return res.status(500).send('Login failed');
         }
 
-    });*/
+    });
     console.log(JSON.stringify(email), JSON.stringify(password));
     res.send('Login')
 });
@@ -187,5 +187,6 @@ app.get('/highscores', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)
 })
+
 
 

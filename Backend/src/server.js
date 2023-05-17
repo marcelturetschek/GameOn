@@ -205,7 +205,7 @@ app.get('/highscores', (req, res) => {
     }
 );
 
-app.post('/reset-password'), (req, res) => {
+app.post('/reset-password', (req, res) => {
     const {email} = req.body;
     const resetToken = generateResetToken();
     const resetLink = `https://${global.domain}/reset-password?token=${resetToken}`
@@ -221,7 +221,7 @@ app.post('/reset-password'), (req, res) => {
         };
     }
 
-};
+});
 
 
 function generateResetToken() {

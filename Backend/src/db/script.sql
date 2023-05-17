@@ -15,6 +15,7 @@ CREATE TABLE Userdaten (
     TTT INT,
     MS INT,
     PP INT,
+    TGM INT,
     Q1 INT,
     Q2 INT,
     Q3 INT,

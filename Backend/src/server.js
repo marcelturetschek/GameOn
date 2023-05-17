@@ -79,7 +79,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     // Hashing the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const values = [benutzername, email, passwort, userid];
+    const values = [benutzername, email, hashedPassword, userid];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -223,7 +223,7 @@ app.post('/reset-password'), (req, res) => {
 
 };
 
-
+// Methode um 32 zufällige Stellen zu erstellen
 function generateResetToken() {
     return crypto.randomBytes(32).toString('hex');
 }

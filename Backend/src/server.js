@@ -8,10 +8,13 @@ const bodyParser = require('body-parser');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
+
+global.domain = 'GameOn.com';
 
 var corsOptions = {
         "Access-Control-Allow-Origin": "*",
@@ -189,6 +192,28 @@ app.get('/highscores', (req, res) => {
     }
 );
 
+app.post('/reset-password'), (req, res) => {
+    const {email} = req.body;
+    const resetToken = generateResetToken();
+    const resetLink = 'https://${global.domain}/reset-password?token=${resetToken}'
+    const sql = ('INSERT INTO Userdaten(resetLink) VALUES (?) WHERE email = ?');
+    const values = [resetLink, email];
+    con.query(sql, values), (err, result) => {
+        
+        const mailOptions = {
+            from: 'GameOnTGM@gmail.com',
+            to: email,
+            subject: 'Password Reset',
+            text: `Click the following link to reset your password: ${resetLink}`,
+        };
+    }
+
+};
+
+
+function generateResetToken() {
+    return crypto.randomBytes(32).toString('hex');
+}
 
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)

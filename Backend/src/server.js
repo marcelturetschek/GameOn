@@ -122,8 +122,9 @@ app.post('/login', cors(corsOptions), (req, res) => {
 app.post('/tictactoe', (req, res) => {
     // gameData --> Wins am Stück
     const { userID, gameData } = req.body;
-    const sql = 'INSERT INTO Userdata (ttt) VALUES (?) WHERE userID = ?';
-    const values = [gameData, userID];
+    const sql = 'UPDATE Userdata SET ttt = ? WHERE userID = ? AND ttt < ?';
+
+    const values = [gameData, userID, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -131,6 +132,7 @@ app.post('/tictactoe', (req, res) => {
         }
         
     });
+    res.send({"success": true, "msg": "Save successful"})
 
 });
 
@@ -140,8 +142,9 @@ app.post('/tictactoe', (req, res) => {
 app.post('/minesweeper', (req, res) => {
     // gameData --> Zeit für das Spiel
     const { userID, gameData } = req.body;
-    const sql = 'INSERT INTO Userdata (ms) VALUES (?) WHERE userID = ?';
-    const values = [gameData, userID];
+    const sql = 'UPDATE Userdata SET ms = ? WHERE userID = ? AND ms > ?';
+
+    const values = [gameData, userID, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -149,6 +152,7 @@ app.post('/minesweeper', (req, res) => {
         }
         
     });
+    res.send({"success": true, "msg": "Save successful"})
 });
 
 /**
@@ -157,8 +161,9 @@ app.post('/minesweeper', (req, res) => {
 app.post('/retropingpong', (req, res) => {
     // gameData --> Schläge von Board
     const { userID, gameData } = req.body;
-    const sql = 'INSERT INTO Userdata (pp) VALUES (?) WHERE userID = ?';
-    const values = [gameData, userID];
+    const sql = 'UPDATE Userdata SET pp = ? WHERE userID = ? AND pp < ?';
+
+    const values = [gameData, userID, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -166,7 +171,7 @@ app.post('/retropingpong', (req, res) => {
         }
         
     });
-    
+    res.send({"success": true, "msg": "Save successful"})
 });
 
 /**
@@ -175,8 +180,9 @@ app.post('/retropingpong', (req, res) => {
 app.post('/tgmbird', (req, res) => {
     // gameData --> Distance
     const { userID, gameData } = req.body;
-    const sql = 'INSERT INTO Userdata (pp) VALUES (?) WHERE userID = ?';
-    const values = [gameData, userID];
+    const sql = 'UPDATE Userdata SET tgm = ? WHERE userID = ? AND tgm < ?';
+
+    const values = [gameData, userID, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -184,6 +190,7 @@ app.post('/tgmbird', (req, res) => {
         }
         
     });
+    res.send({"success": true, "msg": "Save successful"})
 });
 
 app.get('/highscores', (req, res) => {

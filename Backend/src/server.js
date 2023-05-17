@@ -34,7 +34,7 @@ app.use(logMethod);
 
 var con = mysql.createConnection({
     host: "localhost",
-    port: 8080,
+    port: 3306,
     user: "root",
     password: "abc123",
     database: "Datenbank"

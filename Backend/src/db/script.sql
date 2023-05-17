@@ -12,14 +12,21 @@ CREATE TABLE Userdaten (
     Passwort VARCHAR(255) NOT NULL,
     Username VARCHAR(255) NOT NULL,
     UserID INT AUTO_INCREMENT,
+    TTT INT,
+    MS INT,
+    PP INT,
+    Q1 INT,
+    Q2 INT,
+    Q3 INT,
     PRIMARY KEY (UserID)
+
 );
 
 --
 -- Tabelle Spieldaten
 --
 
-CREATE TABLE Spieldaten (
+/* CREATE TABLE Spieldaten (
     UserID INT,
     TTT INT,
     MS INT,
@@ -27,5 +34,6 @@ CREATE TABLE Spieldaten (
     Q1 INT,
     Q2 INT,
     Q3 INT,
-    FOREIGN KEY (UserID) REFERENCES Userdaten(UserID)
+    FOREIGN KEY (Email) REFERENCES Userdaten(Email)
 );
+*/

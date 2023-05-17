@@ -41,9 +41,6 @@ const logMethod = (req, res, next) => {
 
 app.use(logMethod);
 
-
-
-
 var con = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -75,8 +72,13 @@ app.post('/register', cors(corsOptions), async (req, res) => {
 
     // Insert user into database
     const sql = "INSERT INTO Userdaten (username, email, passwort, userid) VALUES (?, ?, ?, ?)";
+
+    // Random userID 
     var userid = Math.floor(Math.random() * (99999998)) + 2;
+
+    // Hashing the password
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const values = [benutzername, email, passwort, userid];
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -119,9 +121,17 @@ app.post('/login', cors(corsOptions), (req, res) => {
  */
 app.post('/tictactoe', (req, res) => {
     // gameData --> Wins am Stück
-    const { userID, gameID, gameData } = req.body;
-    console.log(JSON.stringify(email), JSON.stringify(password));
-    res.send('Login')
+    const { userID, gameData } = req.body;
+    const sql = 'INSERT INTO Userdata (ttt) VALUES (?) WHERE userID = ?';
+    const values = [gameData, userID];
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Save failed');
+        }
+        
+    });
+
 });
 
 /**
@@ -129,20 +139,16 @@ app.post('/tictactoe', (req, res) => {
  */
 app.post('/minesweeper', (req, res) => {
     // gameData --> Zeit für das Spiel
-    const { userID, gameID, gameData } = req.body;
-
-    // verify email and password
-    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
-    const values = [email, passwort];
+    const { userID, gameData } = req.body;
+    const sql = 'INSERT INTO Userdata (ms) VALUES (?) WHERE userID = ?';
+    const values = [gameData, userID];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Login failed');
+            return res.status(500).send('Save failed');
         }
-
+        
     });
-    console.log(JSON.stringify(email), JSON.stringify(password));
-    res.send('Login')
 });
 
 /**
@@ -150,20 +156,17 @@ app.post('/minesweeper', (req, res) => {
  */
 app.post('/retropingpong', (req, res) => {
     // gameData --> Schläge von Board
-    const { userID, gameID, gameData } = req.body;
-
-    // verify email and password
-    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
-    const values = [email, passwort];
+    const { userID, gameData } = req.body;
+    const sql = 'INSERT INTO Userdata (pp) VALUES (?) WHERE userID = ?';
+    const values = [gameData, userID];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Login failed');
+            return res.status(500).send('Save failed');
         }
-
+        
     });
-    console.log(JSON.stringify(email), JSON.stringify(password));
-    res.send('Login')
+    
 });
 
 /**
@@ -171,31 +174,28 @@ app.post('/retropingpong', (req, res) => {
  */
 app.post('/tgmbird', (req, res) => {
     // gameData --> Distance
-    const { userID, gameID, gameData } = req.body;
-
-    // verify email and password
-    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
-    const values = [email, passwort];
+    const { userID, gameData } = req.body;
+    const sql = 'INSERT INTO Userdata (pp) VALUES (?) WHERE userID = ?';
+    const values = [gameData, userID];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Login failed');
+            return res.status(500).send('Save failed');
         }
-
+        
     });
-    console.log(JSON.stringify(email), JSON.stringify(password));
-    res.send('Login')
 });
 
 app.get('/highscores', (req, res) => {
         // gameData --> Distance
+        
     }
 );
 
 app.post('/reset-password'), (req, res) => {
     const {email} = req.body;
     const resetToken = generateResetToken();
-    const resetLink = 'https://${global.domain}/reset-password?token=${resetToken}'
+    const resetLink = `https://${global.domain}/reset-password?token=${resetToken}`
     const sql = ('INSERT INTO Userdaten(resetLink) VALUES (?) WHERE email = ?');
     const values = [resetLink, email];
     con.query(sql, values), (err, result) => {

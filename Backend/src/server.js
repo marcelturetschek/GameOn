@@ -6,6 +6,7 @@ const app = express()
 const port = 8080
 const bodyParser = require('body-parser');
 const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -54,7 +55,7 @@ app.get('/', (req, res) => {
  * Die Registrierungsdaten werden überprüft
  * Der User füllt das User Formular aus
  */
-app.post('/register', cors(corsOptions), (req, res) => {
+app.post('/register', cors(corsOptions), async (req, res) => {
     const { username, email, password } = req.body;
     // Validate email
     if (!validator.isEmail(email)) {
@@ -63,7 +64,8 @@ app.post('/register', cors(corsOptions), (req, res) => {
 
     // Insert user into database
     const sql = "INSERT INTO Userdaten (username, email, passwort, userid) VALUES (?, ?, ?, ?)";
-    var userid = Math.floor(Math.random() * (99999998)) + 2;;
+    var userid = Math.floor(Math.random() * (99999998)) + 2;
+    const hashedPassword = await bcrypt.hash(password, 10);
     const values = [benutzername, email, passwort, userid];
     con.query(sql, values, (err, result) => {
         if (err) {

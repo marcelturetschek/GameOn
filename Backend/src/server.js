@@ -98,16 +98,22 @@ app.post('/register', cors(corsOptions), async (req, res) => {
  * Die Login Daten werden überprüft
  * Der User füllt das Login Formular aus
  */
-app.post('/login', cors(corsOptions), (req, res) => {
+app.post('/login', cors(corsOptions), async (req, res) => {
     const { email, password } = req.body;
 
     // verify email and password
     const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
-    const values = [email, passwort];
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const values = [email, hashedPassword];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Login failed');
+        }
+        if(result === 0){
+            return res.status(400).send('Invalid Email or Password');
         }
         
     });

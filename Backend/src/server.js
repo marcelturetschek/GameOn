@@ -205,14 +205,17 @@ app.get('/highscores', (req, res) => {
     }
 );
 
-app.post('/reset-password'), (req, res) => {
+app.post('/reset-password', (req, res) => {
     const {email} = req.body;
     const resetToken = generateResetToken();
-    const resetLink = `https://${global.domain}/reset-password?token=${resetToken}`
+    /*const resetLink = `https://${global.domain}/reset-password?token=${resetToken}`
     const sql = ('INSERT INTO Userdaten(resetLink) VALUES (?) WHERE email = ?');
     const values = [resetLink, email];
     con.query(sql, values), (err, result) => {
-        
+        if(result === 0){
+            console.error(err);
+            return res.status(500).send('User does not exist');
+        }
         const mailOptions = {
             from: 'GameOnTGM@gmail.com',
             to: email,
@@ -220,17 +223,38 @@ app.post('/reset-password'), (req, res) => {
             text: `Click the following link to reset your password: ${resetLink}`,
         };
     }
+    */
+    const sql = 'UPDATE Userdaten SET passwort = ? WHERE email = ?';
+    const values = [generateRandomPassword(15), email];
 
-};
+    con.query(sql, values, (err, result) => {
+        if (err) {
+        console.error('Error updating password:', err);
+        } else {
+        console.log('Password updated successfully.');
+        }
+    });
+    res.send({"success": true, "msg": "An E-Mail has been sent!"})
+
+});
 
 // Methode um 32 zufällige Stellen zu erstellen
 function generateResetToken() {
     return crypto.randomBytes(32).toString('hex');
 }
 
+function generateRandomPassword(length) {
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=';
+    let password = '';
+  
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+  
+    return password;
+}
+
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)
 })
-
-
-

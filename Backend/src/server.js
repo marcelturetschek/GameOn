@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const express = require('express')
 const cors = require('cors')
-//const session = require('express-session');
+const session = require('express-session');
 const app = express()
 const port = 8080
 const bodyParser = require('body-parser');
@@ -13,8 +13,19 @@ const crypto = require('crypto');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
+app.use(session({
+    secret: 'secret',
+    reave: false,
+    saveUninitialized: false,
+}))
 
 global.domain = 'GameOn.com';
+
+const user = {
+    username: "",
+    email: "",
+}
+
 
 var corsOptions = {
         "Access-Control-Allow-Origin": "*",
@@ -117,6 +128,19 @@ app.post('/login', cors(corsOptions), async (req, res) => {
         }
         
     });
+
+    con.query('SELECT Username FROM Userdaten WHERE email = ?', email, (err, result) => {
+        const username = result;
+    });
+
+    if(result !== 0){
+        req.session.user = {
+            email: email,
+            username: username,
+
+        }
+    }
+    
     console.log(JSON.stringify(email), JSON.stringify(password));
     console.log(JSON.stringify(req.body));
     res.send({"success": true, "msg": "Login successful"})

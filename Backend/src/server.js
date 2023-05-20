@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors())
 app.use(session({
-    secret: 'secret',
-    reave: false,
+    secret: 'supergeheimerkeyvongameon',
+    resave: false,
     saveUninitialized: false,
 }))
 
@@ -141,7 +141,7 @@ app.post('/login', cors(corsOptions), async (req, res) => {
         }
     }
     
-    console.log(JSON.stringify(email), JSON.stringify(password));
+    console.log(JSON.stringify(email));
     console.log(JSON.stringify(req.body));
     res.send({"success": true, "msg": "Login successful"})
 });
@@ -151,10 +151,10 @@ app.post('/login', cors(corsOptions), async (req, res) => {
  */
 app.post('/tictactoe', (req, res) => {
     // gameData --> Wins am Stück
-    const { userID, gameData } = req.body;
-    const sql = 'UPDATE Userdata SET ttt = ? WHERE userID = ? AND ttt < ?';
+    const { email, gameData } = req.body;
+    const sql = 'UPDATE Userdata SET ttt = ? WHERE email = ? AND ttt < ?';
 
-    const values = [gameData, userID, gameData];
+    const values = [gameData, email, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -171,10 +171,10 @@ app.post('/tictactoe', (req, res) => {
  */
 app.post('/minesweeper', (req, res) => {
     // gameData --> Zeit für das Spiel
-    const { userID, gameData } = req.body;
-    const sql = 'UPDATE Userdata SET ms = ? WHERE userID = ? AND ms > ?';
+    const { email, gameData } = req.body;
+    const sql = 'UPDATE Userdata SET ms = ? WHERE email = ? AND ms > ?';
 
-    const values = [gameData, userID, gameData];
+    const values = [gameData, email, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -190,10 +190,10 @@ app.post('/minesweeper', (req, res) => {
  */
 app.post('/retropingpong', (req, res) => {
     // gameData --> Schläge von Board
-    const { userID, gameData } = req.body;
-    const sql = 'UPDATE Userdata SET pp = ? WHERE userID = ? AND pp < ?';
+    const { email, gameData } = req.body;
+    const sql = 'UPDATE Userdata SET pp = ? WHERE email = ? AND pp < ?';
 
-    const values = [gameData, userID, gameData];
+    const values = [gameData, email, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -209,10 +209,10 @@ app.post('/retropingpong', (req, res) => {
  */
 app.post('/tgmbird', (req, res) => {
     // gameData --> Distance
-    const { userID, gameData } = req.body;
-    const sql = 'UPDATE Userdata SET tgm = ? WHERE userID = ? AND tgm < ?';
+    const { email, gameData } = req.body;
+    const sql = 'UPDATE Userdata SET tgm = ? WHERE email = ? AND tgm < ?';
 
-    const values = [gameData, userID, gameData];
+    const values = [gameData, email, gameData];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -220,12 +220,25 @@ app.post('/tgmbird', (req, res) => {
         }
         
     });
-    res.send({"success": true, "msg": "Save successful"})
+    return result;
 });
 
 app.get('/highscores', (req, res) => {
         // gameData --> Distance
-        
+        // das wird pain
+
+        // Im body muss man auswählen, für welches game man die Scores haben will
+        const {game} = req.body;
+        const sql = 'SELECT Username, ? from Userdaten ORDER BY ? DESC LIMIT 10'
+        const values = [game, game]
+        con.query(sql, values, (err, result) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Failed loading highscores');
+            }
+
+        });
+        res.send({"success": true, "msg": ""})
     }
 );
 

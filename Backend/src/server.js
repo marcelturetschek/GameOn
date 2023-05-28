@@ -112,35 +112,47 @@ app.post('/register', cors(corsOptions), async (req, res) => {
 app.post('/login', cors(corsOptions), async (req, res) => {
     const { email, password } = req.body;
 
-    // verify email and password
-    const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+    try {
+        // Verify email and password
+        const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const values = [email, hashedPassword];
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+        const result = await new Promise((resolve, reject) => {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error(err);
+                    reject('Login failed');
+                }
+                resolve(result);
+            });
+        });
 
-    const values = [email, hashedPassword];
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Login failed');
-        }
-        if(result === 0){
+        if (result.length === 0) {
             return res.status(400).send('Invalid Email or Password');
         }
-        
-    });
 
-    con.query('SELECT Username FROM Userdaten WHERE email = ?', email, (err, result) => {
-        const username = result;
-    });
+        con.query('SELECT Username FROM Userdaten WHERE email = ?', email, (err, result) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Login failed');
+            }
 
-    if(result !== 0){
-        req.session.user = {
-            email: email,
-            username: username,
+            const username = result;
 
-        }
+            req.session.user = {
+                email: email,
+                username: username,
+            };
+        });
+
+        console.log(JSON.stringify(email));
+        console.log(JSON.stringify(req.body));
+        res.send({ "success": true, "msg": "Login successful" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Login failed');
     }
-    
     console.log(JSON.stringify(email));
     console.log(JSON.stringify(req.body));
     res.send({"success": true, "msg": "Login successful"})

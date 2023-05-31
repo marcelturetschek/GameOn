@@ -78,7 +78,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     const { username, email, password } = req.body;
     // Validate email
     if (!validator.isEmail(email)) {
-        return res.status(400).send('Invalid email address');
+        return res.send({"success": false, "msg": "Invalid Email"});
     }
 
     // Insert user into database
@@ -94,15 +94,12 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error inserting user into database');
+            return res.send({"success": false, "msg": "Invalid Email or Password"});
+        } else {
+            console.log("User successfully registered");
+            return res.status(200).send({"success": true, "msg": "Register successful"});
         }
-        console.log("User successfully registered");
-        return res.status(200).send('User successfully registered');
-    }); 
-
-    console.log(JSON.stringify(email), JSON.stringify(password), JSON.stringify(username))
-    console.log(JSON.stringify(req.body));
-    res.send({"success": true, "msg": "Register successful"})
+    });
 })
 
 /**
@@ -130,13 +127,13 @@ app.post('/login', cors(corsOptions), async (req, res) => {
         });
 
         if (result.length === 0) {
-            return res.status(400).send({"success": false, "msg":"Invalid Email or Password"});
+            return res.send({"success": false, "msg": "Invalid Email or Password"});
         }
 
         con.query('SELECT Username FROM Userdaten WHERE email = ?', email, (err, result) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Login failed');
+                return res.send({"success": false, "msg": "Invalid Email or Password"});
             }
 
             const username = result;
@@ -146,17 +143,13 @@ app.post('/login', cors(corsOptions), async (req, res) => {
                 username: username,
             };
         });
-
         console.log(JSON.stringify(email));
         console.log(JSON.stringify(req.body));
         res.send({ "success": true, "msg": "Login successful" });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Login failed');
+        res.send({"success": false, "msg":"Invalid Email or Password"});
     }
-    console.log(JSON.stringify(email));
-    console.log(JSON.stringify(req.body));
-    res.send({"success": true, "msg": "Login successful"})
 });
 
 /**

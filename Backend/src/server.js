@@ -88,7 +88,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     var userid = Math.floor(Math.random() * (99999998)) + 2;
 
     // Hashing the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = hash(password);
 
     const values = [username, email, hashedPassword, userid];
     con.query(sql, values, (err, result) => {
@@ -115,7 +115,7 @@ app.post('/login', cors(corsOptions), async (req, res) => {
     try {
         // Verify email and password
         const sql = "SELECT * FROM Userdaten WHERE email = ? AND passwort = ?";
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = hash(password);
         const values = [email, hashedPassword];
 
         console.log(email, hashedPassword);
@@ -304,6 +304,11 @@ function generateRandomPassword(length) {
     return password;
 }
 
+function hash(input) {
+    const hash = crypto.createHash('sha256');
+    hash.update(input);
+    return hash.digest('hex');
+}
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)
 })

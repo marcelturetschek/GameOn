@@ -90,7 +90,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     // Hashing the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const values = [benutzername, email, hashedPassword, userid];
+    const values = [username, email, hashedPassword, userid];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -110,7 +110,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
  * Der User füllt das Login Formular aus
  */
 app.post('/login', cors(corsOptions), async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password} = req.body;
 
     try {
         // Verify email and password
@@ -118,6 +118,7 @@ app.post('/login', cors(corsOptions), async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const values = [email, hashedPassword];
 
+        console.log(email, hashedPassword);
         const result = await new Promise((resolve, reject) => {
             con.query(sql, values, (err, result) => {
                 if (err) {
@@ -129,7 +130,7 @@ app.post('/login', cors(corsOptions), async (req, res) => {
         });
 
         if (result.length === 0) {
-            return res.status(400).send('Invalid Email or Password');
+            return res.status(400).send({"success": false, "msg":"Invalid Email or Password"});
         }
 
         con.query('SELECT Username FROM Userdaten WHERE email = ?', email, (err, result) => {
@@ -248,9 +249,8 @@ app.get('/highscores', (req, res) => {
                 console.error(err);
                 return res.status(500).send('Failed loading highscores');
             }
-
+            res.send(result)
         });
-        res.send({"success": true, "msg": ""})
     }
 );
 

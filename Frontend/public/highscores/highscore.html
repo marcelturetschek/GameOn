@@ -42,8 +42,8 @@
 
 
     <div class="container mt-5">
-        
-        
+
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="game1-tab" data-toggle="tab" href="#game1" role="tab" aria-controls="game1" aria-selected="true" style="color: black">TGM Bird</a>
@@ -58,7 +58,7 @@
             <a class="nav-link" id="game4-tab" data-toggle="tab" href="#game4" role="tab" aria-controls="game4" aria-selected="false" style="color: black">Minesweeper</a>
           </li>
         </ul>
-        
+
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="game1" role="tabpanel" aria-labelledby="game1-tab">
             <table class="table">
@@ -200,13 +200,13 @@
           </div>
         </div>
       </footer>
-  
+
 
 
 
       <style>
-        
-  
+
+
         /* footer {
           position: fixed;
           bottom: 0;
@@ -215,12 +215,12 @@
           margin-left: -405px;
         } */
 
-      
-  
+
+
         .iwas:hover {
           text-decoration: none;
         }
-  
+
         .list-inline-item:hover{
             text-decoration: none;
             transition: transform 0.2s ease-in-out;
@@ -237,8 +237,59 @@
       flex-direction: column;
       min-height: 100vh;
       }
-  
+
       </style>
-  
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          games: [
+            pingpong = {
+              scores: []
+            },
+            tictactoe = {
+              scores: []
+            },
+            minesweeper = {
+              scores: []
+            }
+          ],
+          activeTab: 0
+        },
+        mounted() {
+          this.fetchHighscores();
+        },
+        methods: {
+          fetchHighscores() {
+            this.games.forEach((game) => {
+              fetch(`http://localhost:8080/highscores`,  {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({game: game.title})
+              })
+                      .then((response) => {
+                        //response.json()
+                        (response.json());
+                      })
+                      .then((highscores) => {
+                        game.scores = highscores;
+                        console.log(highscores);
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
+            });
+          },
+          setActiveTab(index) {
+            this.activeTab = index;
+          }
+        }
+      });
+    </script>
+
     </body>
   </html>

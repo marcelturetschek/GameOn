@@ -82,7 +82,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     }
 
     // Insert user into database
-    const sql = "INSERT INTO Userdaten (username, email, passwort, userid) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO Userdaten VALUES (?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0)";
 
     // Random userID 
     var userid = Math.floor(Math.random() * (99999998)) + 2;
@@ -90,7 +90,7 @@ app.post('/register', cors(corsOptions), async (req, res) => {
     // Hashing the password
     const hashedPassword = hash(password);
 
-    const values = [username, email, hashedPassword, userid];
+    const values = [email, hashedPassword,username, userid];
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
@@ -229,19 +229,20 @@ app.post('/tgmbird', (req, res) => {
     return result;
 });
 
-app.get('/highscores', (req, res) => {
+app.post('/highscores', cors(corsOptions), (req, res) => {
         // gameData --> Distance
         // das wird pain
 
         // Im body muss man auswählen, für welches game man die Scores haben will
-        const {game} = req.body;
-        const sql = 'SELECT Username, ? from Userdaten ORDER BY ? DESC LIMIT 10'
+        const game = req.body.gameTitle;
+        const sql = `SELECT Username, ${game} from Userdaten ORDER BY ${game} DESC LIMIT 10`
         const values = [game, game]
-        con.query(sql, values, (err, result) => {
+        con.query(sql, (err, result) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Failed loading highscores');
             }
+            console.log(result)
             res.send(result)
         });
     }
